@@ -26,14 +26,18 @@ import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.scorecounter.R
 
 @Composable
 fun StartScreen(
-    onBacClick: () -> Unit,
+    navController: NavHostController,
     onBemClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -46,7 +50,9 @@ fun StartScreen(
         CardChoice(
             title = "حساب معدل شهادة البكالوريا",
             backgroundColor = Color(0xFF0E6495),
-            onClick = onBacClick
+            onClick = {
+                navController.navigate("cho3ba_screen")
+            }
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -57,6 +63,14 @@ fun StartScreen(
             backgroundColor = Color(0xFF10B981),
             onClick = onBemClick
         )
+        Spacer(modifier = Modifier.height(16.dp))
+
+
+        /*CardChoice(
+            title = "معدلات قبول التخصصات الجامعية",
+            backgroundColor = Color(0xFFEE9B00),
+            onClick = onBemClick
+        )*/
     }
 }
 
@@ -104,5 +118,5 @@ fun CardChoice(
 )
 @Composable
 fun StartScreenPreview() {
-    StartScreen(onBacClick = {}, onBemClick = {})
+    //StartScreen(onBacClick = {}, onBemClick = {})
 }

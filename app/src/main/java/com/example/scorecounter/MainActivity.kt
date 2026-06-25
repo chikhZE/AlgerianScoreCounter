@@ -9,10 +9,16 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
+import com.example.scorecounter.screens.Cho3baScreen
 import com.example.scorecounter.screens.StartScreen
 import com.example.scorecounter.ui.theme.ScoreCounterTheme
 import kotlinx.coroutines.delay
@@ -31,8 +37,32 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             ScoreCounterTheme {
+                val navController = rememberNavController()
+                val navBackStackEntry by navController.currentBackStackEntryAsState()
+                val currentRoute = navBackStackEntry?.destination?.route
+
+
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    StartScreen({},{},Modifier.padding(innerPadding))
+                    //StartScreen({},{},Modifier.padding(innerPadding))
+                    NavHost(
+                        navController = navController,
+                        startDestination = "starter_screen"
+                    ) {
+                        composable("starter_screen") {
+                            StartScreen(
+                                navController,
+                                {},
+                                Modifier.padding(innerPadding)
+                            )
+                        }
+                        composable("cho3ba_screen") {
+                            Cho3baScreen(
+                                navController,
+                                Modifier.padding(innerPadding)
+                            )
+                        }
+                    }
+
                 }
             }
         }
