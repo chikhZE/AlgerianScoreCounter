@@ -34,7 +34,7 @@ fun Cho3baScreen(
     Scaffold(
         topBar = {
             SimpleTopBar(
-                "اختر الشعبة",
+                "اختيار الشعبة",
                 {
                     navController.popBackStack()
                 }
@@ -52,42 +52,54 @@ fun Cho3baScreen(
             CardChoice(
                 "علوم تجريبية",
                 backgroundColor = Color(0xFF0E6495),
-                {}
+                {
+                    navController.navigate("calc_screen/علوم")
+                }
             )
             Spacer(modifier = Modifier.height(16.dp))
 
             CardChoice(
                 "رياضيات",
                 backgroundColor = Color(0xFF0E6495),
-                {}
+                {
+                    navController.navigate("calc_screen/رياضيات")
+                }
             )
             Spacer(modifier = Modifier.height(16.dp))
 
             CardChoice(
                 "تقني رياضي",
                 backgroundColor = Color(0xFF0E6495),
-                {}
+                {
+                    navController.navigate("calc_screen/تقني")
+                }
             )
             Spacer(modifier = Modifier.height(16.dp))
 
             CardChoice(
                 "آداب وفلسفة",
                 backgroundColor = Color(0xFF0E6495),
-                {}
+                {
+                    navController.navigate("calc_screen/آداب")
+                }
             )
             Spacer(modifier = Modifier.height(16.dp))
 
             CardChoice(
                 "تسيير واقتصاد",
                 backgroundColor = Color(0xFF0E6495),
-                {}
+                {
+                    navController.navigate("calc_screen/تسيير")
+                }
             )
             Spacer(modifier = Modifier.height(16.dp))
 
             CardChoice(
                 "لغات اجنبية",
                 backgroundColor = Color(0xFF0E6495),
-                {}
+                {
+                    navController.navigate("calc_screen/لغات")
+                }
             )
         }
     }

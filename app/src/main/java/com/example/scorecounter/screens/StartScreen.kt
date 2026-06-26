@@ -33,7 +33,6 @@ import com.example.scorecounter.R
 @Composable
 fun StartScreen(
     navController: NavHostController,
-    onBemClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
@@ -61,7 +60,10 @@ fun StartScreen(
         CardChoice(
             title = "حساب معدل شهادة البيام",
             backgroundColor = Color(0xFF10B981),
-            onClick = onBemClick
+            onClick = {
+                navController.navigate("calc_screen/بيام")
+
+            }
         )
         Spacer(modifier = Modifier.height(16.dp))
 
