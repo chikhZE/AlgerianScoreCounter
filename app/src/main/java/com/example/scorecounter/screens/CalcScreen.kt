@@ -13,12 +13,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
@@ -27,6 +29,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -41,6 +44,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.scorecounter.getSubjectsOfCho3ba
+import com.example.scorecounter.screens.SubjectCard
 import com.example.scorecounter.ui.theme.ScoreCounterTheme
 
 @Composable
@@ -49,10 +53,11 @@ fun CalcScreen(
     navController: NavHostController,
     modifier: Modifier = Modifier
 ) {
-    val subjectList = remember(cho3baName) {
-    getSubjectsOfCho3ba(cho3baName)
+    var subjectList by remember(cho3baName) {
+        mutableStateOf(getSubjectsOfCho3ba(cho3baName))
     }
-    var showDialog by remember { mutableStateOf(false) }
+    var showDialog by rememberSaveable { mutableStateOf(false) }
+    var finalScore by rememberSaveable { mutableStateOf(0.0) }
     Scaffold(
         topBar = {
             SimpleTopBar(
@@ -73,17 +78,37 @@ fun CalcScreen(
                 modifier = Modifier
                     .padding(innerPadding)
             ) {
-                items(subjectList) { item ->
-                    if(cho3baName == "بيام") {
+                val cardColor = if (cho3baName == "بيام") Color(0xFF10B981) else Color(0xFF0E6495)
+                itemsIndexed(subjectList) { index, item ->
                         SubjectCard(
                             item.name,
-                            Color(0xFF10B981)
+                            item.score,
+                            onScoreChange = { newScore ->
+                                if (newScore.isEmpty()) {
+                                    val updatedList = subjectList.toMutableList()
+                                    updatedList[index] = updatedList[index].copy(score = "")
+                                    subjectList = updatedList
+                                } else {
+                                    val scoreValue = newScore.toDoubleOrNull()
+
+                                    if (scoreValue != null && scoreValue in 0.0..20.0) {
+                                        val updatedList = subjectList.toMutableList()
+                                        updatedList[index] = updatedList[index].copy(score = newScore)
+                                        subjectList = updatedList
+                                    }
+                                }
+                            },
+                            cardColor,
+                            item.isOptional,
+                            item.isEnabled,
+                            {
+                                val updatedList = subjectList.toMutableList()
+                                updatedList[index] = updatedList[index].copy(isEnabled = !item.isEnabled)
+                                subjectList = updatedList
+                            }
+
                         )
-                    } else{
-                        SubjectCard(
-                            item.name
-                        )
-                    }
+
                     Spacer(modifier = Modifier.height(16.dp))
                 }
             }
@@ -95,6 +120,17 @@ fun CalcScreen(
             ) {
                 Button(
                     onClick = {
+                        var totalPoints = 0.0
+                        var totalCoefficients = 0
+                        subjectList.forEach {subject ->
+                            val isSport = subject.name == "التربية البدنية"
+                            if (!subject.isOptional || subject.isEnabled) {
+                                val scoreOfSubject = (subject.score.toDoubleOrNull()?.times(subject.coefficient)) ?: 0.0
+                                totalCoefficients += subject.coefficient
+                                totalPoints += scoreOfSubject
+                            }
+                        }
+                        finalScore = (totalPoints / totalCoefficients)
                         showDialog = true
                     },
                     modifier = Modifier
@@ -115,33 +151,26 @@ fun CalcScreen(
                     Button(onClick = { showDialog = false }) { Text("تم") }
                 },
                 title = { Text("المعدل النهائي") },
-                text = { Text("معدلك المتوقع هو: 15.34") }
-            )
+                text = { Text("معدلك المتوقع هو: ${String.format("%.2f", finalScore)}") }            )
         }
 
     }
 }
 
-@Preview(
-    showBackground = true,
-    showSystemUi = true,
-)
-@Composable
-fun CalcScreenPreview() {
-    ScoreCounterTheme() {
 
-    //CalcScreen()
-    }
-}
-
-@Preview
 @Composable
 fun SubjectCard(
     title: String = "المادة",
+    score: String = "",
+    onScoreChange: (String) -> Unit = {},
     backgroundColor: Color = Color(0xFF0E6495),
+    isOptional: Boolean = false,
+    isEnabled: Boolean = true,
+    onCheckedChange: () -> Unit = {},
     modifier: Modifier = Modifier,
 
     ) {
+
     Card(
         modifier = modifier
             .fillMaxWidth(),
@@ -155,6 +184,12 @@ fun SubjectCard(
             horizontalArrangement = Arrangement.End,
             verticalAlignment = Alignment.CenterVertically
         ) {
+            if(isOptional) {
+                Checkbox(
+                    checked = isEnabled,
+                    onCheckedChange = {onCheckedChange()}
+                )
+            }
             Text(
                 text = title,
                 modifier = Modifier.padding(horizontal = 12.dp),
@@ -164,15 +199,16 @@ fun SubjectCard(
                 style = TextStyle(textDirection = TextDirection.Content)
             )
             OutlinedTextField(
-                value = "0",
-                onValueChange = {},
+                value = score,
+                onValueChange = onScoreChange,
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Decimal
                 ),
                 modifier = Modifier
                     .width(100.dp),
                 singleLine = true,
-                textStyle = LocalTextStyle.current.copy(textAlign = TextAlign.Center)
+                textStyle = LocalTextStyle.current.copy(textAlign = TextAlign.Center),
+                enabled = !isOptional || isEnabled
 
                 )
 

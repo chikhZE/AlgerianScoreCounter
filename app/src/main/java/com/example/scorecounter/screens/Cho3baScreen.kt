@@ -107,15 +107,6 @@ fun Cho3baScreen(
 }
 
 
-@Preview(
-    showBackground = true,
-    showSystemUi = true,
-)
-@Composable
-fun Cho3baScreenPreview() {
-    //Cho3baScreen()
-}
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SimpleTopBar(

@@ -113,12 +113,3 @@ fun CardChoice(
         }
     }
 }
-
-@Preview(
-    showBackground = true,
-    showSystemUi = true
-)
-@Composable
-fun StartScreenPreview() {
-    //StartScreen(onBacClick = {}, onBemClick = {})
-}

@@ -3,7 +3,9 @@ package com.example.scorecounter
 data class Subject(
     val name: String ,
     val coefficient: Int,
-    var score: String = ""
+    val isOptional: Boolean = false,
+    var score: String = "",
+    var isEnabled: Boolean = true
 )
 
 fun getSubjectsOfCho3ba(
@@ -20,7 +22,9 @@ fun getSubjectsOfCho3ba(
             Subject("اللغة الفرنسية", 2),
             Subject("اللغة الإنجليزية", 2),
             Subject("العلوم الإسلامية", 2),
-            Subject("التربية البدنية", 1)
+            Subject("اللغة الأمازيغية", 2,true),
+
+            Subject("التربية البدنية", 1,true)
         )
 
         "رياضيات" -> listOf(
@@ -33,7 +37,9 @@ fun getSubjectsOfCho3ba(
             Subject("اللغة الفرنسية", 2),
             Subject("اللغة الإنجليزية", 2),
             Subject("العلوم الإسلامية", 2),
-            Subject("التربية البدنية", 1)
+            Subject("اللغة الأمازيغية", 2,true),
+
+            Subject("التربية البدنية", 1,true)
         )
 
         "تقني" -> listOf(
@@ -46,7 +52,9 @@ fun getSubjectsOfCho3ba(
             Subject("اللغة الفرنسية", 2),
             Subject("اللغة الإنجليزية", 2),
             Subject("العلوم الإسلامية", 2),
-            Subject("التربية البدنية", 1)
+            Subject("اللغة الأمازيغية", 2,true),
+
+            Subject("التربية البدنية", 1,true),
         )
 
         "تسيير" -> listOf(
@@ -60,7 +68,9 @@ fun getSubjectsOfCho3ba(
             Subject("اللغة الإنجليزية", 2),
             Subject("الفلـسفة", 1),
             Subject("العلوم الإسلامية", 2),
-            Subject("التربية البدنية", 1)
+            Subject("اللغة الأمازيغية", 2,true),
+
+            Subject("التربية البدنية", 1,true)
         )
 
         "آداب" -> listOf(
@@ -71,7 +81,9 @@ fun getSubjectsOfCho3ba(
             Subject("اللغة الإنجليزية", 3),
             Subject("العلوم الإسلامية", 2),
             Subject("الرياضيات", 2),
-            Subject("التربية البدنية", 1)
+            Subject("اللغة الأمازيغية", 2,true),
+
+            Subject("التربية البدنية", 1,true)
         )
 
         "لغات" -> listOf(
@@ -83,7 +95,9 @@ fun getSubjectsOfCho3ba(
             Subject("الفلسفة", 2),
             Subject("العلوم الإسلامية", 2),
             Subject("الرياضيات", 2),
-            Subject("التربية البدنية", 1)
+            Subject("اللغة الأمازيغية", 2,true),
+
+            Subject("التربية البدنية", 1,true)
         )
         "بيام" -> listOf(
             Subject("اللغة العربية وآدابها", 5),
@@ -95,7 +109,10 @@ fun getSubjectsOfCho3ba(
             Subject("التاريخ والجغرافيا", 3),
             Subject("التربية المدنية", 2),
             Subject("العلوم الإسلامية", 2),
-            Subject("التربية البدنية", 1)
+            Subject("اللغة الأمازيغية", 2,true),
+            Subject("الرسم", 1,true),
+            Subject("الموسيقى", 1,true),
+            Subject("التربية البدنية", 1,true)
         )
 
         else -> {emptyList()}
