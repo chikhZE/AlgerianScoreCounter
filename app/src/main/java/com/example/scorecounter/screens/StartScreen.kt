@@ -69,7 +69,7 @@ fun StartScreen(
 
 
         CardChoice(
-            title = "معدلات قبول التخصصات الجامعية",
+            title = "أبرز التخصصات الجامعية",
             backgroundColor = Color(0xFFEE9B00),
             onClick = {
                 navController.navigate("cho3baMajor_screen")

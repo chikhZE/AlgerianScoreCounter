@@ -77,7 +77,6 @@ fun CalcScreen(
         ) {
             LazyColumn(
                 modifier = Modifier
-                    //.padding(innerPadding)
             ) {
                 val cardColor = if (cho3baName == "بيام") Color(0xFF10B981) else Color(0xFF0E6495)
                 itemsIndexed(subjectList) { index, item ->

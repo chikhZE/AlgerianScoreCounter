@@ -81,6 +81,7 @@ class MainActivity : ComponentActivity() {
                             val cho3baName = backStackEntry.arguments?.getString("cho3baName") ?: "علوم"
 
                             MajorsScreen(
+                                cho3baName,
                                 navController,
 
                             )
