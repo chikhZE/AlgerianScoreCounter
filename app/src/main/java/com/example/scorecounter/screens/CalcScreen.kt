@@ -72,11 +72,12 @@ fun CalcScreen(
         Box(
             modifier = modifier
                 .padding(horizontal = 16.dp)
+                .padding(innerPadding)
                 .fillMaxSize()
         ) {
             LazyColumn(
                 modifier = Modifier
-                    .padding(innerPadding)
+                    //.padding(innerPadding)
             ) {
                 val cardColor = if (cho3baName == "بيام") Color(0xFF10B981) else Color(0xFF0E6495)
                 itemsIndexed(subjectList) { index, item ->

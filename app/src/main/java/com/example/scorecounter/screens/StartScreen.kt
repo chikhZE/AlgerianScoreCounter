@@ -68,11 +68,14 @@ fun StartScreen(
         Spacer(modifier = Modifier.height(16.dp))
 
 
-        /*CardChoice(
+        CardChoice(
             title = "معدلات قبول التخصصات الجامعية",
             backgroundColor = Color(0xFFEE9B00),
-            onClick = onBemClick
-        )*/
+            onClick = {
+                navController.navigate("cho3baMajor_screen")
+
+            }
+        )
     }
 }
 

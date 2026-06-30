@@ -27,10 +27,12 @@ import com.example.scorecounter.R
 
 @Composable
 fun Cho3baScreen(
+    nameOfRoute: String,
     navController: NavHostController,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    backgroundColor: Color = Color(0xFF0E6495),
 
-) {
+    ) {
     Scaffold(
         topBar = {
             SimpleTopBar(
@@ -51,54 +53,54 @@ fun Cho3baScreen(
         ) {
             CardChoice(
                 "علوم تجريبية",
-                backgroundColor = Color(0xFF0E6495),
+                backgroundColor = backgroundColor,
                 {
-                    navController.navigate("calc_screen/علوم")
+                    navController.navigate("$nameOfRoute/علوم")
                 }
             )
             Spacer(modifier = Modifier.height(16.dp))
 
             CardChoice(
                 "رياضيات",
-                backgroundColor = Color(0xFF0E6495),
+                backgroundColor = backgroundColor,
                 {
-                    navController.navigate("calc_screen/رياضيات")
+                    navController.navigate("$nameOfRoute/رياضيات")
                 }
             )
             Spacer(modifier = Modifier.height(16.dp))
 
             CardChoice(
                 "تقني رياضي",
-                backgroundColor = Color(0xFF0E6495),
+                backgroundColor = backgroundColor,
                 {
-                    navController.navigate("calc_screen/تقني")
+                    navController.navigate("$nameOfRoute/تقني")
                 }
             )
             Spacer(modifier = Modifier.height(16.dp))
 
             CardChoice(
                 "آداب وفلسفة",
-                backgroundColor = Color(0xFF0E6495),
+                backgroundColor = backgroundColor,
                 {
-                    navController.navigate("calc_screen/آداب")
+                    navController.navigate("$nameOfRoute/آداب")
                 }
             )
             Spacer(modifier = Modifier.height(16.dp))
 
             CardChoice(
                 "تسيير واقتصاد",
-                backgroundColor = Color(0xFF0E6495),
+                backgroundColor = backgroundColor,
                 {
-                    navController.navigate("calc_screen/تسيير")
+                    navController.navigate("$nameOfRoute/تسيير")
                 }
             )
             Spacer(modifier = Modifier.height(16.dp))
 
             CardChoice(
                 "لغات اجنبية",
-                backgroundColor = Color(0xFF0E6495),
+                backgroundColor = backgroundColor,
                 {
-                    navController.navigate("calc_screen/لغات")
+                    navController.navigate("$nameOfRoute/لغات")
                 }
             )
         }
@@ -119,7 +121,7 @@ fun SimpleTopBar(
                 text = title,
                 fontSize = 28.sp,
                 modifier = Modifier
-                    .padding(8.dp)
+                    .padding(24.dp)
             )
         },
         navigationIcon = {

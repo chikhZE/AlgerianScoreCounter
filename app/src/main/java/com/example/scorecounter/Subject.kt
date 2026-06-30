@@ -8,6 +8,10 @@ data class Subject(
     var isEnabled: Boolean = true
 )
 
+data class UniversityMajor(
+    val name : String,
+    val scoreNeeded: Double,
+)
 fun getSubjectsOfCho3ba(
     Cho3baName: String
 ): List<Subject> {
@@ -113,6 +117,48 @@ fun getSubjectsOfCho3ba(
             Subject("الرسم", 1,true),
             Subject("الموسيقى", 1,true),
             Subject("التربية البدنية", 1,true)
+        )
+
+        else -> {emptyList()}
+    }
+}
+
+fun getMajorsOfCho3ba(
+    Cho3baName: String
+): List<UniversityMajor> {
+    return when(Cho3baName) {
+        "علوم" -> listOf(
+            UniversityMajor("علوم الطبيعة والحياة", 6.0),
+
+        )
+
+        "رياضيات" -> listOf(
+            UniversityMajor("الرياضيات", 7.0),
+
+        )
+
+        "تقني" -> listOf(
+            UniversityMajor("علوم الطبيعة والحياة", 6.0),
+
+        )
+
+        "تسيير" -> listOf(
+            UniversityMajor("علوم الطبيعة والحياة", 6.0),
+
+        )
+
+        "آداب" -> listOf(
+            UniversityMajor("علوم الطبيعة والحياة", 6.0),
+
+        )
+
+        "لغات" -> listOf(
+            UniversityMajor("علوم الطبيعة والحياة", 6.0),
+
+        )
+        "بيام" -> listOf(
+            UniversityMajor("علوم الطبيعة والحياة", 6.0),
+
         )
 
         else -> {emptyList()}
